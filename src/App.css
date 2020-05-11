@@ -42,12 +42,14 @@ li.item {
     flex-direction: row;
 }
 
-h3 {
-    font-weight: 500;
-}
-
 input[type="checkbox"] {
     margin-right: 5px;
+}
+
+input[name="item"] {
+    background-color: transparent;
+    border: none;
+    color: white;
 }
 
 input.addnote {

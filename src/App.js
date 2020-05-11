@@ -45,6 +45,12 @@ function App() {
         setNewNoteTitle('');
     }
 
+    function updateNoteItem(e, note, item) {
+        var allNotes = [...notes];
+        allNotes[note].items[item].title = e.target.value;
+        setNotes(allNotes);
+    }
+
     return (
         <div className="app">
             <header className="header">
@@ -80,7 +86,12 @@ function App() {
                                     checked={item.marked}
                                     onChange={(e) => checkNote(e, selectedNote, index)}
                                 />
-                                <h3>{item.title}</h3>
+                                <input
+                                    name="item"
+                                    type="text"
+                                    value={item.title}
+                                    onChange={(e) => updateNoteItem(e, selectedNote, index)}
+                                />
                             </li>
                         ))}
                     </ul>
