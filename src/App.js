@@ -51,6 +51,12 @@ function App() {
         setNotes(allNotes);
     }
 
+    function updateNoteTitle(e) {
+        var allNotes = [...notes];
+        allNotes[selectedNote].title = e.target.value;
+        setNotes(allNotes);
+    }
+
     return (
         <div className="app">
             <header className="header">
@@ -76,7 +82,12 @@ function App() {
             </div>
             <div className="main">
                 <div className="mainnote">
-                    <h1>{notes[selectedNote]?.title}</h1>
+                    <input 
+                        name="title"
+                        type="text"
+                        value={notes[selectedNote]?.title}
+                        onChange={(e) => updateNoteTitle(e)}
+                    />
                     <ul>
                         {notes[selectedNote]?.items.map((item, index) => (
                             <li className="item" key={index}>
