@@ -45,6 +45,14 @@ function App() {
         setNewNoteTitle('');
     }
 
+    function AddNoteItem(note) {
+        var allNotes = [...notes];
+        allNotes[note].items.push(
+            { title: '', marked: false },
+        )
+        setNotes(allNotes);
+    }
+
     function updateNoteItem(e, note, item) {
         var allNotes = [...notes];
         allNotes[note].items[item].title = e.target.value;
@@ -106,6 +114,9 @@ function App() {
                             </li>
                         ))}
                     </ul>
+                    <div className="btn" style={{display: !!notes[selectedNote] ? 'block' : 'none'}} onClick={() => AddNoteItem(selectedNote)}>
+                        <i className="fas fa-plus"></i>
+                    </div>
                 </div>
             </div>
         </div>
