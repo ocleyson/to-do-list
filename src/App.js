@@ -2,22 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-    const [notes, setNotes] = useState([
-        {
-            title: 'Segunda',
-            items: [
-                { title: 'Estudar ingles', marked: false },
-                { title: 'Jogar', marked: false }
-            ]
-        },
-        {
-            title: 'Terça',
-            items: [
-                { title: 'Estudar ingles', marked: false },
-                { title: 'Arrumar cama', marked: false }
-            ]
-        }
-    ]);
+    const [notes, setNotes] = useState([]);
 
     const [newNoteTitle, setNewNoteTitle] = useState('');
 
@@ -45,11 +30,17 @@ function App() {
         setNewNoteTitle('');
     }
 
-    function AddNoteItem(note) {
+    function addNoteItem(note) {
         var allNotes = [...notes];
         allNotes[note].items.push(
             { title: '', marked: false },
         )
+        setNotes(allNotes);
+    }
+
+    function removeNoteItem(note, item) {
+        var allNotes = [...notes];
+        allNotes[note].items.splice(item, 1);
         setNotes(allNotes);
     }
 
@@ -111,10 +102,13 @@ function App() {
                                     value={item.title}
                                     onChange={(e) => updateNoteItem(e, selectedNote, index)}
                                 />
+                                <div className="btn" onClick={() => removeNoteItem(selectedNote, index)}>
+                                    <i class="fas fa-times"></i>
+                                </div>
                             </li>
                         ))}
                     </ul>
-                    <div className="btn" style={{display: !!notes[selectedNote] ? 'block' : 'none'}} onClick={() => AddNoteItem(selectedNote)}>
+                    <div className="btn" style={{display: !!notes[selectedNote] ? 'block' : 'none'}} onClick={() => addNoteItem(selectedNote)}>
                         <i className="fas fa-plus"></i>
                     </div>
                 </div>
