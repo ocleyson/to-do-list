@@ -30,6 +30,13 @@ function App() {
         setNewNoteTitle('');
     }
 
+    function removeNote(note) {
+        setSelectedNote(null);
+        var allNotes = [...notes];
+        allNotes.splice(note, 1);
+        setNotes(allNotes);
+    }
+
     function addNoteItem(note) {
         var allNotes = [...notes];
         allNotes[note].items.push(
@@ -73,8 +80,13 @@ function App() {
                 </form>
                 <ul>
                     {notes.map((note, index) => (
-                        <li className="note" key={index} onClick={() => setSelectedNote(index)}>
-                            <h2>{note.title}</h2>
+                        <li className="note" key={index}>
+                            <div className="notetitle" onClick={() => setSelectedNote(index)}>
+                                <h2>{note.title}</h2>
+                            </div>
+                            <div className="btnnote" onClick={() => removeNote(index)}>
+                                <i class="fas fa-times"></i>
+                            </div>
                         </li>
                     ))}
                 </ul>
@@ -86,6 +98,7 @@ function App() {
                         type="text"
                         value={notes[selectedNote]?.title}
                         onChange={(e) => updateNoteTitle(e)}
+                        style={{display: !!notes[selectedNote] ? 'block' : 'none'}}
                     />
                     <ul>
                         {notes[selectedNote]?.items.map((item, index) => (
@@ -102,13 +115,13 @@ function App() {
                                     value={item.title}
                                     onChange={(e) => updateNoteItem(e, selectedNote, index)}
                                 />
-                                <div className="btn" onClick={() => removeNoteItem(selectedNote, index)}>
+                                <div className="btnitem" onClick={() => removeNoteItem(selectedNote, index)}>
                                     <i class="fas fa-times"></i>
                                 </div>
                             </li>
                         ))}
                     </ul>
-                    <div className="btn" style={{display: !!notes[selectedNote] ? 'block' : 'none'}} onClick={() => addNoteItem(selectedNote)}>
+                    <div className="btnitem" style={{display: !!notes[selectedNote] ? 'block' : 'none'}} onClick={() => addNoteItem(selectedNote)}>
                         <i className="fas fa-plus"></i>
                     </div>
                 </div>
